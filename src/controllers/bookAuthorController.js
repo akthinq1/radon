@@ -1,5 +1,6 @@
 const BookModel = require("../models/bookModel");
-const AuthorModel = require("../models/authorModel")
+const AuthorModel = require("../models/authorModel");
+//const bookModel = require("../models/bookModel");
 
 let createNewAuthor = async function(req, res) {
     let newData = req.body
@@ -20,10 +21,10 @@ let getBooksbyChetanBhagat = async function(req,res) {
 }
 
 let authorOfBookUpdate = async function(req,res) {
-    let data = await AuthorModel.findOneAndUpdate( {name:"Two states"}, {$set: { prices:100}}, {new:true} )
-    let authorData = await AuthorModel.find( {author_id:data.author_id} ).select("author_name")
+    let data = await BookModel.findOneAndUpdate( {name:"Two states"}, {$set: { prices:100}}, {new:true} )
+    let authorData = await AuthorModel.find( {author_id:data.author_id} ).select({author_name: 1, _id : 0} )
     let price = data.prices
-    res.send( {msg: authorData } )
+    res.send( {msg: authorData, price } )
 }
  
 
